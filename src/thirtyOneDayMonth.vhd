@@ -66,7 +66,7 @@ end thirtyOneDayMonth;
 
 architecture thirtyOneDayMonth_arch of thirtyOneDayMonth is 
 	-- include components declarations and signals
-	signal w_sel : std_logic_vector (2 downto 0); -- MUX sel
+	signal w_sel : std_logic_vector (3 downto 0); -- MUX sel
     
 	--signals internal to the architecture are declared and initialized such as w_sel
   
@@ -75,16 +75,19 @@ begin
 	--assigning names to reflect original schematics (for ease of understanding if you wish to)
 	w_sel(0) <= i_D;
 	w_sel(1) <= i_C;
-	w_sel(2) <= i_B;	-- one
+	w_sel(2) <= i_B;
+	w_sel(3) <= i_A;
+		-- one
 	--finish assigning signals
 	
 	
- o_Y <= '1' when (i_A = '0' and (w_sel = "000" or  -- January
-                     w_sel = "010" or  -- March
-                     w_sel = "011" or  -- May
-                     w_sel = "101" or  -- July
-                     w_sel = "110" or  -- August
-                     w_sel = "111"))   -- October & December
+ o_Y <= '1' when (w_sel = "0001" or  -- January
+                     w_sel = "0011" or  -- March
+                     w_sel = "0101" or  -- May
+                     w_sel = "0111" or  -- July
+                     w_sel = "1000" or  -- August
+                     w_sel = "1010" or  -- October
+                     w_sel = "1100")    -- December
          else '0';
 	
 	--enter your logic here to implement the mux.  See VHDL reference sheet for MUX syntax.	
