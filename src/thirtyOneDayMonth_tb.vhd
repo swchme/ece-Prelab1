@@ -89,14 +89,46 @@ begin
 	-- Implement the test plan here.  Body of process is continuous from time = 0  
 	test_process : process 
 	begin
-	-- Place test cases here. The first two have been written for you
-		w_sw <= x"0"; wait for 10 ns;
-            assert w_Y = '0' report "error on x0" severity failure;
-        w_sw <= x"1"; wait for 10 ns;
-            assert w_Y = '1' report "error on Jan" severity failure;   
+	w_sw <= x"1"; wait for 10 ns;  -- january (0001)
+    assert w_Y = '1' report "Error: January failed" severity failure;
+    
+    w_sw <= x"3"; wait for 10 ns;  -- march (0011)
+    assert w_Y = '1' report "Error: March failed" severity failure;
+    
+    w_sw <= x"5"; wait for 10 ns;  -- may (0101)
+    assert w_Y = '1' report "Error: May failed" severity failure;
+    
+    w_sw <= x"7"; wait for 10 ns;  -- july (0111)
+    assert w_Y = '1' report "Error: July failed" severity failure;
+    
+    w_sw <= x"8"; wait for 10 ns;  -- august (1000)
+    assert w_Y = '1' report "Error: August failed" severity failure;
+    
+    w_sw <= x"A"; wait for 10 ns;  -- october (1010)
+    assert w_Y = '1' report "Error: October failed" severity failure;
+    
+    w_sw <= x"C"; wait for 10 ns;  -- december (1100)
+    assert w_Y = '1' report "Error: December failed" severity failure;
+    
+    -- Test for months that do NOT have 31 days (should return '0')
 
-		wait; -- wait forever
-	end process;	
+    w_sw <= x"2"; wait for 10 ns;  -- f (0010)
+    assert w_Y = '0' report "Error: February failed" severity failure;
+    
+    w_sw <= x"4"; wait for 10 ns;  -- april (0100)
+    assert w_Y = '0' report "Error: April failed" severity failure;
+    
+    w_sw <= x"6"; wait for 10 ns;  -- june (0110)
+    assert w_Y = '0' report "Error: June failed" severity failure;
+    
+    w_sw <= x"9"; wait for 10 ns;  -- september (1001)
+    assert w_Y = '0' report "Error: September failed" severity failure;
+    
+    w_sw <= x"B"; wait for 10 ns;  -- november (1011)
+    assert w_Y = '0' report "Error: November failed" severity failure;
+    
+    wait; -- Keep simulation running
+  end process;  	
 	-----------------------------------------------------	
 	
 end test_bench;
