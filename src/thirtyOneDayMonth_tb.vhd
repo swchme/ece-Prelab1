@@ -76,11 +76,11 @@ begin
 	-- PORT MAPS ----------------------------------------
 	-- map ports for any component instances (port mapping is like wiring hardware)
     thirtyOneDayMonthMux_inst : thirtyOneDayMonth port map (
-			i_D => w_sw(3),
-			i_C => w_sw(2),
-			i_B => w_sw(1),
-			i_A => w_sw(0),
-	    		o_Y => w_Y
+			i_A => w_sw(3),  -- MSB
+			i_B => w_sw(2),
+			i_C => w_sw(1),
+			i_D => w_sw(0),  -- LSB
+			o_Y => w_Y
         );
 	-----------------------------------------------------
 
