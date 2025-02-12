@@ -110,7 +110,6 @@ begin
     w_sw <= x"C"; wait for 10 ns;  -- december (1100)
     assert w_Y = '1' report "Error: December failed" severity failure;
     
-    -- Test for months that do NOT have 31 days (should return '0')
 
     w_sw <= x"2"; wait for 10 ns;  -- f (0010)
     assert w_Y = '0' report "Error: February failed" severity failure;
@@ -127,6 +126,20 @@ begin
     w_sw <= x"B"; wait for 10 ns;  -- november (1011)
     assert w_Y = '0' report "Error: November failed" severity failure;
     
+
+    
+    w_sw <= x"0"; wait for 10 ns;  -- Invalid (0000)
+    assert w_Y = '0' report "Error: 0000 failed" severity failure;
+    
+    w_sw <= x"D"; wait for 10 ns;  -- Invalid (1101) - Month 13
+    assert w_Y = '0' report "Error: 1101 (Month 13) failed" severity failure;
+
+    w_sw <= x"E"; wait for 10 ns;  -- Invalid (1110) - Month 14
+    assert w_Y = '0' report "Error: 1110 (Month 14) failed" severity failure;
+
+    w_sw <= x"F"; wait for 10 ns;  -- Invalid (1111) - Month 15
+    assert w_Y = '0' report "Error: 1111 (Month 15) failed" severity failure;
+
     wait; -- Keep simulation running
   end process;  	
 	-----------------------------------------------------	
